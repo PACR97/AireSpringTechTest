@@ -1,0 +1,93 @@
+﻿@model EmployeeIndexVm
+@{
+}
+
+<form asp-action="Index" asp-controller="Employee" method="get">
+    <div class="form-group">
+        <label asp-for="Filter!.PropertyFilter">First or LastName</label>
+        <input asp-for="Filter!.PropertyFilter" class="form-control">
+    </div>
+    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
+
+<br />
+
+<a href="@Url.Action("GetAddOrEditEmployeeForm","Employee")" class="btn btn-success" id="btnCreateEmployee">New</a>
+
+<table class="table" id="employeeTable">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Zip</th>
+            <th scope="col">Hire Date</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Employees)
+        {
+            <tr>
+                <th scope="row">@item.EmployeeId</th>
+                <td>@item.EmployeeFirstName</td>
+                <td>@item.EmployeeLastName</td>
+                <th >@item.EmployeePhone</th>
+                <td>@item.EmployeeZip</td>
+                <td>@item.HireDate</td>
+                <td>
+                    <a 
+                        class="btn btn-primary editEmployee" 
+                        href="@Url.Action("GetAddOrEditEmployeeForm","Employee", new{id = item.EmployeeId})">Edit</a>
+                </td>
+                <td>
+                    <a 
+                        class="btn btn-danger deleteEmployee"
+                        href="@Url.Action("DeleteEmployee","Employee", new{id = item.EmployeeId})">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal" tabindex="-1" id="modalAddOrEditEmployee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modalAddOrEditEmployeeTitle" class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalAddOrEditEmployeeBody">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="addOrEditEmployeeForm">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalConfirmDeleteEmployee">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure to delete the Employee?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnDeleteEmployee">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/Employee.js"></script>

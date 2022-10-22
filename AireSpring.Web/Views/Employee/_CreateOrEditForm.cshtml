@@ -1,0 +1,30 @@
+﻿@model AireSpring.Web.Models.CreateOrEditEmployeeDto
+
+<form asp-action="SaveEmployee" asp-controller="Employee" id="addOrEditEmployeeForm">
+    <div asp-validation-summary="ModelOnly"></div>
+    @if (!Model.IsNewEmployee())
+    {
+        <input type="hidden" asp-for="EmployeeId" class="form-control">
+        <input type="hidden" asp-for="HireDate" class="form-control">
+    }
+    <div class="form-group">
+        <label asp-for="EmployeeFirstName"></label>
+        <input asp-for="EmployeeFirstName" class="form-control">
+        <span asp-validation-for="EmployeeFirstName" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmployeeLastName"></label>
+        <input asp-for="EmployeeLastName" class="form-control">
+        <span asp-validation-for="EmployeeLastName" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmployeePhone"></label>
+        <input asp-for="EmployeePhone" class="form-control">
+        <span asp-validation-for="EmployeePhone" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmployeeZip"></label>
+        <input asp-for="EmployeeZip" class="form-control">
+        <span asp-validation-for="EmployeeZip" class="small text-danger"></span>
+    </div>
+</form>
